@@ -115,22 +115,41 @@ let appState = {
     currentRitualIndex: 0
 };
 
+// --- SUPABASE REALTIME & CLOUD SYNC ---
+const SUPABASE_URL = "https://dndnpnaeyuazkrwefnoj.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuZG5wbmFleXVhemtyd2Vmbm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzcxMzUsImV4cCI6MjEwMTk1MzEzNX0.OYvJ-CX-uG_CzaU6Rcth8pjlg4bCQC0rhKjAdNPBt1E";
+let supabaseClient = null;
+
+if (window.supabase && window.supabase.createClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 // --- 4. INITIALIZATION ---
-document.addEventListener("DOMContentLoaded", () => {
-    loadStateFromStorage();
+document.addEventListener("DOMContentLoaded", async () => {
     initCanvas();
     initNavigationTabs();
     initJarModule();
     init20ScenariosModule();
     initQuestionsModule();
+    await loadStateFromStorage();
+    initRealtimeSync();
 });
 
-// --- LOCAL STORAGE HELPERS ---
-function saveStateToStorage() {
+// --- LOCAL & CLOUD STORAGE HELPERS ---
+async function saveStateToStorage() {
     localStorage.setItem("ask_oyun_state", JSON.stringify(appState));
+    if (supabaseClient) {
+        try {
+            await supabaseClient
+                .from('game_state')
+                .upsert({ id: 'melih_kevser', state: appState, updated_at: new Date().toISOString() });
+        } catch (e) {
+            console.error("Supabase sync save error:", e);
+        }
+    }
 }
 
-function loadStateFromStorage() {
+async function loadStateFromStorage() {
     const saved = localStorage.getItem("ask_oyun_state");
     if (saved) {
         try {
@@ -144,6 +163,55 @@ function loadStateFromStorage() {
         } catch (e) {
             console.error("Storage parse error:", e);
         }
+    }
+
+    if (supabaseClient) {
+        try {
+            const { data, error } = await supabaseClient
+                .from('game_state')
+                .select('state')
+                .eq('id', 'melih_kevser')
+                .maybeSingle();
+
+            if (data && data.state) {
+                appState = { ...appState, ...data.state };
+                appState.partner1 = "Melih";
+                appState.partner2 = "Kevser";
+                localStorage.setItem("ask_oyun_state", JSON.stringify(appState));
+                refreshAllUI();
+            }
+        } catch (e) {
+            console.error("Supabase load error:", e);
+        }
+    }
+}
+
+function initRealtimeSync() {
+    if (!supabaseClient) return;
+    supabaseClient
+        .channel('public:game_state')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'game_state', filter: 'id=eq.melih_kevser' }, payload => {
+            if (payload.new && payload.new.state) {
+                appState = { ...appState, ...payload.new.state };
+                appState.partner1 = "Melih";
+                appState.partner2 = "Kevser";
+                localStorage.setItem("ask_oyun_state", JSON.stringify(appState));
+                refreshAllUI();
+                showToast("Canlı senkronizasyon güncellendi! 🔄", "✨");
+            }
+        })
+        .subscribe();
+}
+
+function refreshAllUI() {
+    if (typeof renderJarDisplay === "function") renderJarDisplay();
+    if (typeof render20ScenarioForms === "function") render20ScenarioForms();
+    if (typeof renderScenarioRevealDeck === "function" && (appState.scenariosData?.p1?.some(Boolean) || appState.scenariosData?.p2?.some(Boolean))) {
+        renderScenarioRevealDeck();
+    }
+    if (typeof renderCurrentQuestion === "function") renderCurrentQuestion();
+    if (typeof renderAllAnswersResultsDeck === "function" && appState.isTestCompleted) {
+        renderAllAnswersResultsDeck();
     }
 }
 
