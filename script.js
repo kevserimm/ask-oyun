@@ -769,6 +769,8 @@ function renderCurrentQuestion() {
     const hasP1 = !!savedObj.p1;
     const hasP2 = !!savedObj.p2;
     const bothAnswered = hasP1 && hasP2;
+    // Aktif oyuncunun bu cihazda cevabı varsa sonraki soruya geçebilir
+    const activePlayerAnswered = (activePlayer === "p1") ? hasP1 : hasP2;
 
     const lockNotice = document.getElementById("q-lock-status-notice") || document.getElementById("q-lock-notice");
     const nextBtn = document.getElementById("next-q-btn");
@@ -778,20 +780,22 @@ function renderCurrentQuestion() {
         lockNotice.className = "q-lock-status-notice unlocked";
         lockNotice.textContent = "✅ İkiniz de cevapladınız! (Cevaplar gizli kaydedildi, sonraki soruya geçebilirsiniz)";
         nextBtn.disabled = (appState.currentQuestionIndex === QUESTIONS_DATA.length - 1);
+    } else if (activePlayerAnswered) {
+        // Aktif kişi cevapladı, diğeri henüz kendi cihazında cevaplamadı
+        lockNotice.className = "q-lock-status-notice unlocked";
+        const activePlayerName = (activePlayer === "p2") ? "Kevser" : "Melih";
+        const otherPlayerName  = (activePlayer === "p2") ? "Melih" : "Kevser";
+        lockNotice.textContent = `✅ ${activePlayerName} cevabını kaydetti! ${otherPlayerName} kendi cihazında cevaplarken sen sonraki soruya geçebilirsin.`;
+        nextBtn.disabled = (appState.currentQuestionIndex === QUESTIONS_DATA.length - 1);
     } else {
         lockNotice.className = "q-lock-status-notice";
-        if (hasP2 && !hasP1) {
-            lockNotice.textContent = "🔒 Kevser cevabını yazdı. Melih'in de cevabını yazması bekleniyor.";
-        } else if (!hasP2 && hasP1) {
-            lockNotice.textContent = "🔒 Melih cevabını yazdı. Kevser'in de cevabını yazması bekleniyor.";
-        } else {
-            lockNotice.textContent = "🔒 Sonraki soruya geçebilmek için hem Kevser hem Melih cevap vermelidir.";
-        }
+        const activePlayerName = (activePlayer === "p2") ? "Kevser" : "Melih";
+        lockNotice.textContent = `🔒 ${activePlayerName}, lütfen önce cevabını kaydet.`;
         nextBtn.disabled = true;
     }
 
     const isLastQuestion = (appState.currentQuestionIndex === QUESTIONS_DATA.length - 1);
-    if ((isLastQuestion && bothAnswered) || appState.isTestCompleted) {
+    if ((isLastQuestion && activePlayerAnswered) || appState.isTestCompleted) {
         finishBtn.classList.remove("hidden");
         if (appState.isTestCompleted) {
             finishBtn.textContent = "🎉 Test Tamamlandı (Tüm Cevaplar Açık)";
