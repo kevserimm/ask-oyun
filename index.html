@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevser & Melih 💖</title>
+    <meta name="description"
+        content="Melih ve Kevser'e özel romantik ve psikolojik egzersiz oyunları: Teşekkür Kavanozu, 20 Senaryo ve 36 Soru.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Canvas for Floating Hearts & Sparkles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="heart-pulse">💖</div>
+                <div>
+                    <h1 class="app-title">Kevser & Melih</h1>
+                    <p class="app-subtitle">Duygusal Bağ & Ortak Hayal Alanı</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="tab-jar">
+                <span class="tab-icon">🫙</span>
+                <span class="tab-label">Takdir Kavanozu</span>
+                <span class="badge" id="jar-count-badge">0</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-wishes">
+                <span class="tab-icon">✨</span>
+                <span class="tab-label">20 Hayal Senaryosu</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-questions">
+                <span class="tab-icon">💬</span>
+                <span class="tab-label">36 Soru Egzersizi</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+
+            <!-- TAB 1: TAKDİR VE TEŞEKKÜR KAVANOZU -->
+            <section id="tab-jar" class="tab-pane active">
+                <div class="game-intro-card glass-panel">
+                    <div class="intro-header">
+                        <div class="game-icon">🫙</div>
+                        <div>
+                            <h2>Takdir ve Teşekkür Kavanozu</h2>
+                            <p class="rule-quote">"Hafta boyunca fark ettiğiniz küçük güzel şeyleri yazın, hafta sonu
+                                birlikte açıp okuyun."</p>
+                        </div>
+                    </div>
+
+                    <div class="psychology-box">
+                        <span class="psy-title">🧠 Psikolojik Etkisi:</span>
+                        <p>İlişkilerdeki "olumsuzluk algısını" kıran güçlü bir yeniden çerçeveleme (cognitive reframing)
+                            egzersizidir. Zihni partnerinizin eksiklerine değil, çabasına ve varlığına odaklayarak
+                            görünürlük hissini besler.</p>
+                    </div>
+                </div>
+
+                <div class="jar-experience-grid">
+                    <!-- Interactive Visual Glass Jar -->
+                    <div class="jar-display-panel glass-panel">
+                        <div class="jar-wrapper">
+                            <div class="jar-lid" id="jar-lid">
+                                <div class="lid-knob"></div>
+                                <div class="lid-base"></div>
+                            </div>
+                            <div class="jar-body" id="jar-body">
+                                <div class="jar-shine"></div>
+                                <div class="jar-notes-inside" id="jar-notes-inside">
+                                    <!-- Dynamic Floating Colored Paper Slips -->
+                                </div>
+                                <div class="jar-label">
+                                    <span>Melih & Kevser</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="jar-stats">
+                            <span id="jar-note-count-text">Kavanozda <strong>0</strong> gizli sevgi notu birikti.</span>
+                        </div>
+
+                        <div class="jar-control-buttons">
+                            <button id="open-add-note-modal-btn" class="primary-btn pulse-glow">
+                                ✍️ Kavanoza Not At
+                            </button>
+                            <button id="open-jar-ritual-btn" class="gold-btn">
+                                🎁 Kavanozu Aç & Okumaya Başla
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Notes Stream (LOCKED/HIDDEN UNTIL OPENED) -->
+                    <div class="jar-history-panel glass-panel">
+                        <h3>💌 Biriken Notlar (Gizli)</h3>
+                        <p class="sub-text">Yazılan notlar kilitlidir. İçerikler sadece kavanozu açınca okunabilir.</p>
+                        <div class="notes-feed" id="notes-feed">
+                            <!-- Dynamic locked note cards -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- TAB 2: 20 HAYAL SENARYOSU OYUNU -->
+            <section id="tab-wishes" class="tab-pane">
+                <div class="game-intro-card glass-panel">
+                    <div class="intro-header">
+                        <div class="game-icon">✨</div>
+                        <div>
+                            <h2>20 Hayal Senaryosu Oyunu</h2>
+                            <p class="rule-quote">"Elimizde sihirli bir değnek var; 5 farklı kategoride 20 çılgın ve
+                                romantik senaryomuzu yazıyoruz."</p>
+                        </div>
+                    </div>
+
+                    <div class="psychology-box">
+                        <span class="psy-title">🧠 Psikolojik Etkisi:</span>
+                        <p>Kısıtlamaları ve rutinleri unutun. Kategorize edilmiş 20 senaryo ile ortak gelecek
+                            vizyonunuzu ve fantezilerinizi en ince detayına kadar inşa edin.</p>
+                    </div>
+                </div>
+
+                <!-- Player Switcher for 20 Scenarios -->
+                <div class="scenario-role-bar glass-panel">
+                    <span>Şu an dolduran kişi:</span>
+                    <div class="role-toggle-btns">
+                        <button class="role-btn active" id="scenario-role-kevser">💖 Kevser'in 20 Senaryosu</button>
+                        <button class="role-btn" id="scenario-role-melih">💙 Melih'in 20 Senaryosu</button>
+                    </div>
+                </div>
+
+                <!-- 20 Scenario Forms Categorized -->
+                <div class="scenario-categories-container" id="scenario-forms-wrapper">
+                    <!-- Dynamic 5 Categories x 4 Scenarios -->
+                </div>
+
+                <!-- Action Controls for Scenarios -->
+                <div class="wishes-action-bar">
+                    <button id="save-wishes-btn" class="primary-btn pulse-glow">
+                        💖 20 Senaryoyu Kaydet & Sahneye Yükle
+                    </button>
+                </div>
+
+                <!-- Saved Scenarios Stage / Reveal Deck -->
+                <div id="wishes-reveal-section" class="wishes-reveal-container glass-panel hidden">
+                    <h3 class="section-title">✨ Hayal Sahneniz (20 Senaryo)</h3>
+                    <p class="section-sub">Aşağıdaki kategorilere tıklayarak birbirinizin senaryolarını detaylarıyla
+                        okuyup tartışın!</p>
+                    <div class="reveal-cards-grid" id="reveal-cards-grid">
+                        <!-- Dynamic Cards Inserted via JS -->
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- TAB 3: 36 SORU EGZERSİZİ -->
+            <section id="tab-questions" class="tab-pane">
+                <div class="game-intro-card glass-panel">
+                    <div class="intro-header">
+                        <div class="game-icon">💬</div>
+                        <div>
+                            <h2>36 Soru Egzersizi (Arthur Aron)</h2>
+                            <p class="rule-quote">"Cevaplar test sırasında gizlidir! Tüm sorular tamamlandığında
+                                birbirinizin cevapları açılır."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROLE SWITCHER BAR (KEVSER FIRST, MELİH SECOND) -->
+                <div class="q-player-switch-card glass-panel">
+                    <div class="switch-title">👤 Ekran Sahibi (Şu an Soruyu Cevaplayan):</div>
+                    <div class="switch-buttons">
+                        <button class="switch-player-btn active" id="q-switch-kevser">
+                            💖 Kevser'in Ekranı
+                        </button>
+                        <button class="switch-player-btn" id="q-switch-melih">
+                            💙 Melih'in Ekranı
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Progress Indicator -->
+                <div class="progress-bar-container">
+                    <div class="progress-info">
+                        <span id="question-number-indicator">Soru 1 / 36</span>
+                        <span id="question-progress-percent">0% Tamamlandı</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="question-progress-fill" style="width: 2.7%;"></div>
+                    </div>
+                </div>
+
+                <!-- Interactive Question Card -->
+                <div class="question-card-wrapper">
+                    <div class="question-card glass-panel" id="question-card">
+                        <div class="q-badge" id="q-stage-badge">1. Aşama - Tanışma</div>
+                        <div class="q-number" id="q-num-display">#1</div>
+                        <h3 class="q-text" id="q-text-display">Dünyadaki herhangi bir insanla akşam yemeği yiyebilecek
+                            olsaydın, bu kim olurdu?</h3>
+
+                        <!-- ACTIVE PLAYER'S INPUT BOX -->
+                        <div class="active-player-input-box">
+                            <label class="person-label" id="active-player-label">💖 Kevser'in Cevabı:</label>
+                            <textarea id="active-player-q-input" placeholder="Cevabını buraya yaz..."></textarea>
+                            <button id="save-single-q-answer-btn" class="primary-btn sm-btn">
+                                💾 Cevabımı Kaydet
+                            </button>
+                        </div>
+
+                        <!-- OTHER PLAYER'S ANSWER DISPLAY -->
+                        <div class="other-player-answer-box" id="other-player-box">
+                            <label class="person-label" id="other-player-label">💙 Melih'in Cevabı:</label>
+                            <div class="other-answer-content" id="other-answer-content">
+                                🔒 Cevabınız gizlidir. Birbirinizin cevapları test bittiğinde açılacaktır.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Locking Notice -->
+                    <div class="q-lock-status-notice" id="q-lock-notice">
+                        🔒 Sonraki soruya geçebilmek için hem Kevser hem Melih cevap vermelidir.
+                    </div>
+
+                    <!-- Navigation controls -->
+                    <div class="question-controls">
+                        <button id="prev-q-btn" class="secondary-btn" disabled>
+                            👈 Önceki Soru
+                        </button>
+
+                        <button id="finish-36-questions-btn" class="gold-btn hidden pulse-glow">
+                            🎉 Testi Tamamla & Tüm Cevapları Aç!
+                        </button>
+
+                        <button id="next-q-btn" class="primary-btn" disabled>
+                            Sonraki Soru 👉
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TEST COMPLETED REVEAL BOARD -->
+                <div id="q-results-section" class="q-results-board glass-panel hidden">
+                    <h2 class="section-title">🎉 36 Soru Test Sonuçları & Tüm Cevaplarınız</h2>
+                    <p class="section-sub">Tebrikler! İkiniz de 36 soruluk egzersizi tamamladınız. İşte birbirinize
+                        verdiğiniz tüm özel cevaplar:</p>
+
+                    <div class="all-answers-deck" id="all-answers-deck">
+                        <!-- Dynamic list of all 36 questions -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL 1: NOT EKLE MODALI -->
+    <div class="modal-overlay hidden" id="add-note-modal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3>💌 Kavanoza Not Ekle</h3>
+                <button class="close-modal-btn" id="close-note-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Not Kimden?</label>
+                    <select id="note-author-select">
+                        <option value="p2">Kevser</option>
+                        <option value="p1">Melih</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Kağıt Rengi Seç</label>
+                    <div class="color-picker-options">
+                        <button class="color-opt active" data-color="pink" style="background:#ff758c;"></button>
+                        <button class="color-opt" data-color="gold" style="background:#f6d365;"></button>
+                        <button class="color-opt" data-color="purple" style="background:#b19ffb;"></button>
+                        <button class="color-opt" data-color="blue" style="background:#84fab0;"></button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Kategori / Etiket</label>
+                    <select id="note-tag-select">
+                        <option value="Küçük Şeyler">🌱 Küçük Şeyler</option>
+                        <option value="Gülümseten Anlar">😊 Gülümseten Anlar</option>
+                        <option value="Teşekkür Ederim">🙏 Teşekkür Ederim</option>
+                        <option value="Duygusal Jest">💖 Duygusal Jest</option>
+                        <option value="Günün Tatlı Anısı">☕ Günün Tatlı Anısı</option>
+                        <option value="Sende En Sevdiğim Şey">🌟 Sende En Sevdiğim Şey</option>
+                        <option value="Beni Dinlediğin İçin">👂 Beni Dinlediğin İçin</option>
+                        <option value="Güven ve Huzur">🫂 Güven ve Huzur</option>
+                        <option value="Unutulmaz Bir An">📸 Unutulmaz Bir An</option>
+                        <option value="Sen Benim İçin...">👑 Sen Benim İçin...</option>
+                        <option value="İçimden Geldi">💌 İçimden Geldi</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sevgi / Takdir Notun</label>
+                    <textarea id="note-content-input"
+                        placeholder="Bugün benim için yaptığın veya sende çok sevdiğim detay..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="submit-note-btn" class="primary-btn">🫙 Notu Kavanoza At</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: KAVANOZ AÇILIŞ RİTÜELİ MODALI -->
+    <div class="modal-overlay hidden" id="jar-ritual-modal">
+        <div class="modal-card ritual-modal-card glass-panel">
+            <div class="modal-header">
+                <h3>🎁 Kavanoz Açılış Ritüeli</h3>
+                <button class="close-modal-btn" id="close-jar-ritual-btn">&times;</button>
+            </div>
+            <div class="ritual-body" id="ritual-body">
+                <div class="scroll-paper-container" id="scroll-paper-container">
+                    <div class="scroll-paper" id="scroll-paper">
+                        <div class="scroll-tag" id="scroll-tag">Etiket</div>
+                        <p class="scroll-text" id="scroll-text">Not yükleniyor...</p>
+                        <span class="scroll-author" id="scroll-author">- Kevser</span>
+                    </div>
+                </div>
+
+                <div class="ritual-controls">
+                    <button id="next-ritual-note-btn" class="gold-btn">
+                        📜 Sıradaki Notu Çek & Oku
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
